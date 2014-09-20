@@ -11,7 +11,7 @@ class mailcatcher::params {
 
     'Debian': {
       $packages = ['ruby-dev','sqlite3','libsqlite3-dev', 'rubygems']
-      case $::operativesystem {
+      case $::operatingsystem {
         'Ubuntu' : {
           $config_file = '/etc/init/mailcatcher.conf'
           $template = 'mailcatcher/etc/init/mailcatcher.conf.erb'

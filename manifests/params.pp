@@ -11,10 +11,19 @@ class mailcatcher::params {
 
     'Debian': {
       $packages = ['ruby-dev','sqlite3','libsqlite3-dev', 'rubygems']
-      $config_file = '/etc/init/mailcatcher.conf'
-      $template = 'mailcatcher/etc/init/mailcatcher.conf.erb'
-      $provider = 'upstart'
-     }
+      case $::operativesystem {
+        'Ubuntu' : {
+          $config_file = '/etc/init/mailcatcher.conf'
+          $template = 'mailcatcher/etc/init/mailcatcher.conf.erb'
+          $provider = 'upstart'
+        }
+        'Debian' : {
+          $config_file = '/etc/init.d/mailcatcher'
+          $template    = 'mailcatcher/etc/init/mailcatcher.lsb.erb'
+          $provider    = 'debian'
+        }
+      }
+    }
     'Redhat': {
       $packages = ['ruby-devel', 'sqlite-devel', 'rubygems', 'gcc-c++']      
       $config_file = '/etc/init.d/mailcatcher'
